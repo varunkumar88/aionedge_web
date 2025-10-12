@@ -57,14 +57,19 @@
                 </a>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="mission-vision.html" class="nav-link">Mission & Vision</a></li>
-                <li class="nav-item"><a href="dutch-legal.html" class="nav-link">Dutch Legal</a></li>
-                <li class="nav-item"><a href="demos.html" class="nav-link active">Demos</a></li>
-                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link" data-translate="nav.home">Home</a></li>
+                <li class="nav-item"><a href="mission-vision.html" class="nav-link" data-translate="nav.missionVision">Mission & Vision</a></li>
+                <li class="nav-item"><a href="dutch-legal.html" class="nav-link" data-translate="nav.dutchLegal">Dutch Legal</a></li>
+                <li class="nav-item"><a href="demos.html" class="nav-link active" data-translate="nav.demos">Demos</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link" data-translate="nav.contact">Contact</a></li>
             </ul>
             <div class="nav-cta">
-                <a href="index.html#contact" class="btn btn-primary">Book a Demo</a>
+                <a href="index.html#contact" class="btn btn-primary" data-translate="nav.bookDemo">Book a Demo</a>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="nl">NL</button>
             </div>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -223,6 +228,7 @@
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
