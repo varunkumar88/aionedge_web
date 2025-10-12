@@ -28,8 +28,44 @@
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Start timer immediately - before page loads
+        window.loadingStartTime = Date.now();
+    </script>
 </head>
-<body>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="image.png" alt="AIONedge Logo" class="loading-logo">
+            <div class="loading-text">AIONedge</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Force loading screen to stay for exactly 20 seconds
+        (function() {
+            var loadingScreen = document.getElementById('loadingScreen');
+            var body = document.body;
+            
+            // Hide after exactly 20 seconds
+            setTimeout(function() {
+                console.log('Starting fade out after 20 seconds');
+                loadingScreen.classList.add('fade-out');
+                body.classList.remove('loading');
+                
+                // Remove from DOM after fade completes
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    console.log('Loading screen hidden');
+                }, 500);
+            }, 20000); // Exactly 20 seconds
+            
+            console.log('Loading screen timer started - will hide in 20 seconds');
+        })();
+    </script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -41,7 +77,7 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#home" class="nav-link active">Home</a>
                 </li>
                 <li class="nav-item">
                     <a href="mission-vision.html" class="nav-link">Mission & Vision</a>
@@ -72,7 +108,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    AIONedge: Enabling Business Transformation with AI-Driven Optimization
+                    Enabling Business Transformation with AI-Driven Optimization
                 </h1>
                 <p class="hero-description">
                     Transform your business operations with <strong>artificial intelligence</strong> that identifies bottlenecks, automates complex decisions, and streamlines processes across <strong>logistics, Dutch legal systems, insurance, and beyond</strong>. Reduce processing time by up to 80% while improving accuracy and compliance with Dutch regulations and EU standards.
@@ -81,8 +117,7 @@
                     Where AI meets enterprise workflow automation. Intelligent solutions for complex business challenges.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#demo" class="btn btn-primary">Join the Waitlist</a>
-                    <a href="demos.html" class="btn btn-secondary" style="background: transparent; color: #1a1a1a; border: 2px solid #1a1a1a;">Watch Demo</a>
+                    <a href="#features" class="btn btn-primary">Features</a>
                 </div>
             </div>
             <div class="hero-dashboard">
@@ -171,25 +206,25 @@
     </section>
 
     <!-- ChatAION System Section -->
-    <section class="how-it-works">
+    <section class="features" style="background: #f8f9fa;">
         <div class="container">
             <div class="section-header">
                 <h2>ChatAION: Ask Questions, Get Intelligent Answers</h2>
                 <p>Query your legal database through an intuitive dashboard or powerful API</p>
             </div>
-            <div class="works-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1200px;">
+                <div class="feature-card">
+                    <div class="feature-number">1</div>
                     <h3>Dashboard Interface</h3>
                     <p>Use our intuitive ChatAION dashboard to ask questions in natural language. Get instant answers from your legal database, case law, and documents with accurate citations and source references.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
+                <div class="feature-card">
+                    <div class="feature-number">2</div>
                     <h3>API Integration</h3>
                     <p>Integrate ChatAION directly into your existing systems via our REST API. Programmatically query your database, retrieve case law, and generate insights within your workflow automation tools.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="feature-card">
+                    <div class="feature-number">3</div>
                     <h3>Intelligent Responses</h3>
                     <p>Receive context-aware answers powered by RAG technology. Our system retrieves relevant information from Rechtspraak.nl and your internal databases, then generates accurate, cited responses tailored to Dutch legal standards.</p>
                 </div>
@@ -198,25 +233,25 @@
     </section>
 
     <!-- How It Works Section -->
-    <section class="how-it-works" style="background: #ffffff;">
+    <section class="features" style="background: #ffffff;">
         <div class="container">
             <div class="section-header">
                 <h2>Transform Your Operations in Three Intelligent Steps</h2>
                 <p>From process analysis to optimization deployment. AI-driven solutions that deliver measurable results across your organization.</p>
             </div>
-            <div class="works-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1200px;">
+                <div class="feature-card">
+                    <div class="feature-number">1</div>
                     <h3>Analyze & Design</h3>
                     <p>We analyze your Dutch law firm's specific processes, existing systems, and legal workflows to design custom RAG agents tailored to your practice areas, client needs, and operational requirements.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
+                <div class="feature-card">
+                    <div class="feature-number">2</div>
                     <h3>Build & Integrate</h3>
                     <p>We develop and deploy bespoke RAG agents that integrate with your case management systems, legal databases, and Dutch legal frameworks, ensuring seamless workflow integration and compliance.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="feature-card">
+                    <div class="feature-number">3</div>
                     <h3>Train & Optimize</h3>
                     <p>We train your custom agents on your firm's specific data and continuously optimize their performance to provide increasingly accurate legal insights, case analysis, and decision support.</p>
                 </div>

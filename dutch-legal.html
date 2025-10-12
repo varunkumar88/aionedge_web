@@ -6,8 +6,44 @@
     <title>Dutch Legal AI Agents - AIONedge</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="AIonedgeicon.png">
+    <script>
+        // Start timer immediately - before page loads
+        window.loadingStartTime = Date.now();
+    </script>
 </head>
-<body>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="image.png" alt="AIONedge Logo" class="loading-logo">
+            <div class="loading-text">AIONedge</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Force loading screen to stay for exactly 20 seconds
+        (function() {
+            var loadingScreen = document.getElementById('loadingScreen');
+            var body = document.body;
+            
+            // Hide after exactly 20 seconds
+            setTimeout(function() {
+                console.log('Starting fade out after 20 seconds');
+                loadingScreen.classList.add('fade-out');
+                body.classList.remove('loading');
+                
+                // Remove from DOM after fade completes
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    console.log('Loading screen hidden');
+                }, 500);
+            }, 20000); // Exactly 20 seconds
+            
+            console.log('Loading screen timer started - will hide in 20 seconds');
+        })();
+    </script>
+
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -17,7 +53,7 @@
                 </a>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html#features" class="nav-link">Features</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="mission-vision.html" class="nav-link">Mission & Vision</a></li>
                 <li class="nav-item"><a href="dutch-legal.html" class="nav-link active">Dutch Legal</a></li>
                 <li class="nav-item"><a href="demos.html" class="nav-link">Demos</a></li>
@@ -48,7 +84,7 @@
                         <div class="dashboard-controls"><div class="control-dot"></div><div class="control-dot"></div><div class="control-dot"></div></div>
                     </div>
                     <div class="dashboard-content">
-                        <div class="metric-card"><div class="metric-label">Case Prep</div><div class="metric-value">-70%</div><div class="metric-change positive">Faster</div></div>
+                        <div class="metric-card"><div class="metric-label">Case Prep</div><div class="metric-value">70%</div><div class="metric-change positive">Faster</div></div>
                         <div class="metric-card"><div class="metric-label">Citations</div><div class="metric-value">100%</div><div class="metric-change positive">Traceable</div></div>
                         <div class="metric-card"><div class="metric-label">Compliance</div><div class="metric-value">EU</div><div class="metric-change positive">GDPR</div></div>
                         <div class="chart-placeholder"><div class="chart-bars"><div class="bar" style="height: 60%"></div><div class="bar" style="height: 80%"></div><div class="bar" style="height: 45%"></div><div class="bar" style="height: 90%"></div><div class="bar" style="height: 70%"></div><div class="bar" style="height: 85%"></div></div></div>

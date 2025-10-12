@@ -1,3 +1,137 @@
+// Demos Page Carousel
+document.addEventListener('DOMContentLoaded', function() {
+    const demosSlides = document.querySelectorAll('.demos-carousel-slide');
+    const demosIndicators = document.querySelectorAll('.demos-indicator');
+    
+    if (demosSlides.length > 0) {
+        let currentDemosSlide = 0;
+        const demosSlideInterval = 6000; // Change slide every 6 seconds to match zoom animation
+
+        function showDemosSlide(index) {
+            // Remove active class from all slides and indicators
+            demosSlides.forEach(slide => slide.classList.remove('active'));
+            demosIndicators.forEach(indicator => indicator.classList.remove('active'));
+
+            // Add active class to current slide and indicator
+            demosSlides[index].classList.add('active');
+            demosIndicators[index].classList.add('active');
+        }
+
+        function nextDemosSlide() {
+            currentDemosSlide = (currentDemosSlide + 1) % demosSlides.length;
+            showDemosSlide(currentDemosSlide);
+        }
+
+        // Auto-rotate slides
+        let demosAutoRotate = setInterval(nextDemosSlide, demosSlideInterval);
+
+        // Click on indicators to show specific slide
+        demosIndicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', function() {
+                currentDemosSlide = index;
+                showDemosSlide(currentDemosSlide);
+                // Reset auto-rotate timer
+                clearInterval(demosAutoRotate);
+                demosAutoRotate = setInterval(nextDemosSlide, demosSlideInterval);
+            });
+        });
+
+        // Pause auto-rotate on hover
+        const demosCarousel = document.querySelector('.demos-carousel');
+        if (demosCarousel) {
+            demosCarousel.addEventListener('mouseenter', function() {
+                clearInterval(demosAutoRotate);
+            });
+            
+            demosCarousel.addEventListener('mouseleave', function() {
+                demosAutoRotate = setInterval(nextDemosSlide, demosSlideInterval);
+            });
+        }
+    }
+});
+
+// Demo Video Player - No Controls, No Branding
+document.addEventListener('DOMContentLoaded', function() {
+    const videoContainers = document.querySelectorAll('.demo-video-container');
+    
+    videoContainers.forEach(container => {
+        container.addEventListener('click', function() {
+            const videoId = this.getAttribute('data-video-id');
+            const startTime = this.getAttribute('data-start') || '0';
+            
+            // Create iframe with no controls and no branding
+            const iframe = document.createElement('iframe');
+            iframe.className = 'demo-iframe';
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&start=${startTime}&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&disablekb=1&fs=0`;
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allowfullscreen', '');
+            
+            // Replace thumbnail with iframe
+            this.innerHTML = '';
+            this.appendChild(iframe);
+            
+            // Remove click listener
+            this.style.cursor = 'default';
+        });
+    });
+});
+
+// Main Navigation Active State on Scroll (for Home page sections)
+document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY + 150;
+        
+        // Get all sections on the page
+        const sections = document.querySelectorAll('section[id]');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const href = link.getAttribute('href');
+                    if (href === '#' + sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+});
+
+// Section Navigation Active State
+document.addEventListener('DOMContentLoaded', function() {
+    const sectionNavLinks = document.querySelectorAll('.section-nav-link');
+    
+    if (sectionNavLinks.length > 0) {
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 200;
+            
+            sectionNavLinks.forEach(link => {
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    const sectionTop = targetSection.offsetTop;
+                    const sectionBottom = sectionTop + targetSection.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        sectionNavLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                    }
+                }
+            });
+        });
+    }
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
