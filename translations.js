@@ -200,10 +200,48 @@ function setLanguage(lang) {
     });
 }
 
+// Detect default language based on region
+function getDefaultLanguage() {
+    // Check if user has already selected a language
+    const savedLang = localStorage.getItem('preferred-language');
+    if (savedLang) {
+        return savedLang;
+    }
+    
+    // Get browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    const langCode = browserLang.toLowerCase();
+    
+    // European countries that should default to Dutch
+    const dutchRegions = [
+        'nl', 'nl-nl', 'nl-be',  // Netherlands and Belgium (Dutch)
+        'be', 'be-nl',            // Belgium
+    ];
+    
+    // Additional European regions that might prefer Dutch
+    const europeanLangs = [
+        'de', 'fr', 'it', 'es', 'pt', 'pl', 'ro', 'sv', 'da', 'fi', 'no',
+        'cs', 'hu', 'sk', 'bg', 'hr', 'sl', 'et', 'lv', 'lt', 'el', 'mt'
+    ];
+    
+    // Check if it's a Dutch-speaking region
+    if (dutchRegions.some(region => langCode.startsWith(region))) {
+        return 'nl';
+    }
+    
+    // Check if it's another European country (default to Dutch for Europe)
+    if (europeanLangs.some(lang => langCode.startsWith(lang))) {
+        return 'nl';
+    }
+    
+    // Default to English for rest of the world
+    return 'en';
+}
+
 // Initialize language on page load
 document.addEventListener('DOMContentLoaded', function() {
-    const savedLang = localStorage.getItem('preferred-language') || 'en';
-    setLanguage(savedLang);
+    const defaultLang = getDefaultLanguage();
+    setLanguage(defaultLang);
     
     // Add click handlers to language buttons
     document.querySelectorAll('.lang-btn').forEach(btn => {
