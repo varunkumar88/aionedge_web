@@ -9,8 +9,44 @@
     <link rel="icon" type="image/png" href="AIonedgeicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Start timer immediately - before page loads
+        window.loadingStartTime = Date.now();
+    </script>
 </head>
-<body>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="image.png" alt="AIONedge Logo" class="loading-logo">
+            <div class="loading-text">AIONedge</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Force loading screen to stay for exactly 20 seconds
+        (function() {
+            var loadingScreen = document.getElementById('loadingScreen');
+            var body = document.body;
+            
+            // Hide after exactly 20 seconds
+            setTimeout(function() {
+                console.log('Starting fade out after 20 seconds');
+                loadingScreen.classList.add('fade-out');
+                body.classList.remove('loading');
+                
+                // Remove from DOM after fade completes
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    console.log('Loading screen hidden');
+                }, 500);
+            }, 20000); // Exactly 20 seconds
+            
+            console.log('Loading screen timer started - will hide in 20 seconds');
+        })();
+    </script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -21,14 +57,19 @@
                 </a>
             </div>
             <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html#features" class="nav-link">Features</a></li>
-                <li class="nav-item"><a href="mission-vision.html" class="nav-link">Mission & Vision</a></li>
-                <li class="nav-item"><a href="dutch-legal.html" class="nav-link">Dutch Legal</a></li>
-                <li class="nav-item"><a href="demos.html" class="nav-link active">Demos</a></li>
-                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link" data-translate="nav.home">Home</a></li>
+                <li class="nav-item"><a href="mission-vision.html" class="nav-link" data-translate="nav.missionVision">Mission & Vision</a></li>
+                <li class="nav-item"><a href="dutch-legal.html" class="nav-link" data-translate="nav.dutchLegal">Dutch Legal</a></li>
+                <li class="nav-item"><a href="demos.html" class="nav-link active" data-translate="nav.demos">Demos</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link" data-translate="nav.contact">Contact</a></li>
             </ul>
             <div class="nav-cta">
-                <a href="index.html#contact" class="btn btn-primary">Book a Demo</a>
+                <a href="index.html#contact" class="btn btn-primary" data-translate="nav.bookDemo">Book a Demo</a>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="nl">NL</button>
             </div>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -46,10 +87,47 @@
                     See AIONedge in Action
                 </h1>
                 <p class="hero-description">
-                    Watch our <strong>RAG agents</strong> process legal documents, retrieve case law, and generate intelligent insights for Dutch legal teams. Real demonstrations of our AI-powered workflow automation.
+                    Experience <strong>FLOWAION</strong> in action as its RAG agents seamlessly analyze and process complex legal documents, extracting key case law references, statutes, and precedents with unparalleled accuracy. FLOWAION's advanced algorithms empower Dutch legal teams to quickly retrieve the most relevant legal insights, saving time and improving decision-making.
+                </p>
+                <p class="hero-description">
+                    With <strong>CHATAION</strong>, see how our intelligent AI-driven system integrates seamlessly with your business, extracting actionable insights from a wealth of data. Whether it's legal documents, case law, or any other business-critical information, CHATAION's robust AI capabilities streamline your operations by transforming raw data into valuable insights in real-time. Watch live demonstrations to see how FLOWAION and CHATAION together revolutionize legal processes and drive smarter decision-making.
                 </p>
                 <div class="hero-buttons">
                     <a href="#videos" class="btn btn-primary">Watch Demos</a>
+                </div>
+            </div>
+            <div class="hero-dashboard">
+                <div class="dashboard-preview">
+                    <div class="dashboard-header">
+                        <div class="dashboard-title">CreatorFlow Showcase</div>
+                        <div class="dashboard-controls">
+                            <div class="control-dot"></div>
+                            <div class="control-dot"></div>
+                            <div class="control-dot"></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-content">
+                        <div class="demos-carousel">
+                            <div class="demos-carousel-images">
+                                <img src="CreatrFlow1.JPG" alt="CreatorFlow Demo 1" class="demos-carousel-slide active">
+                                <img src="CreatrFlow5.JPG" alt="CreatorFlow Demo 5" class="demos-carousel-slide">
+                                <img src="CreatrFlow6.JPG" alt="CreatorFlow Demo 6" class="demos-carousel-slide">
+                                <img src="CreatrFlow2.JPG" alt="CreatorFlow Demo 2" class="demos-carousel-slide">
+                                <img src="CreatrFlow7.JPG" alt="CreatorFlow Demo 7" class="demos-carousel-slide">
+                                <img src="CreatrFlow8.JPG" alt="CreatorFlow Demo 8" class="demos-carousel-slide">
+                                <img src="CreatrFlow9.JPG" alt="CreatorFlow Demo 9" class="demos-carousel-slide">
+                            </div>
+                            <div class="demos-carousel-indicators">
+                                <span class="demos-indicator active" data-slide="0"></span>
+                                <span class="demos-indicator" data-slide="1"></span>
+                                <span class="demos-indicator" data-slide="2"></span>
+                                <span class="demos-indicator" data-slide="3"></span>
+                                <span class="demos-indicator" data-slide="4"></span>
+                                <span class="demos-indicator" data-slide="5"></span>
+                                <span class="demos-indicator" data-slide="6"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,21 +142,17 @@
             </div>
 
             <!-- Featured YouTube Video -->
-            <div style="max-width: 900px; margin: 0 auto 4rem;">
-                <div class="video-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-                    <div class="video-container">
-                        <iframe 
-                            width="100%" 
-                            height="100%" 
-                            src="https://www.youtube.com/embed/NJ5Fe-tWQLk?start=2&modestbranding=1&rel=0&showinfo=0&controls=1" 
-                            title="AIonedge Demo Video" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                        </iframe>
+            <div class="demo-video-wrapper">
+                <div class="demo-video-card">
+                    <div class="demo-video-container" data-video-id="NJ5Fe-tWQLk" data-start="2">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/NJ5Fe-tWQLk/maxresdefault.jpg" alt="Video Thumbnail">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="video-info">
+                    <div class="demo-video-info">
                         <h3><i class="fas fa-star"></i> ChatAION System Demo: Interactive Q&A with Your Database</h3>
                         <p>Watch how the ChatAION system enables users to ask questions and receive intelligent answers directly from their legal database. This demo showcases two powerful access methods: an intuitive <strong>dashboard interface</strong> for interactive queries and a robust <strong>API</strong> for programmatic integration. See how legal professionals can instantly retrieve case law, analyze documents, and get context-aware responses from Rechtspraak.nl and internal databases.</p>
                         <div class="video-meta">
@@ -91,21 +165,17 @@
             </div>
 
             <!-- Second Featured Video: System Architecture -->
-            <div style="max-width: 900px; margin: 0 auto 4rem;">
-                <div class="video-card" style="box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-                    <div class="video-container">
-                        <iframe 
-                            width="100%" 
-                            height="100%" 
-                            src="https://www.youtube.com/embed/B5JgvVrAEFI?modestbranding=1&rel=0&showinfo=0&controls=1" 
-                            title="FlowAION System Architecture" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                            allowfullscreen
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-                        </iframe>
+            <div class="demo-video-wrapper">
+                <div class="demo-video-card">
+                    <div class="demo-video-container" data-video-id="B5JgvVrAEFI">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/B5JgvVrAEFI/maxresdefault.jpg" alt="Video Thumbnail">
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="video-info">
+                    <div class="demo-video-info">
                         <h3><i class="fas fa-cogs"></i> FlowAION System Architecture: Technical Deep-Dive</h3>
                         <p>Explore the technical architecture behind AIONedge. This video reveals how the <strong>FlowAION system is designed</strong>, including our choice of <strong>AI models</strong>, <strong>vector database</strong> infrastructure, and the complete architecture of our <strong>legal RAG application</strong>. Perfect for technical decision-makers and CTOs evaluating our platform.</p>
                         <div class="video-meta">
@@ -158,6 +228,7 @@
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

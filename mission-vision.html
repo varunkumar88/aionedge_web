@@ -8,8 +8,44 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        // Start timer immediately - before page loads
+        window.loadingStartTime = Date.now();
+    </script>
 </head>
-<body>
+<body class="loading">
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <img src="image.png" alt="AIONedge Logo" class="loading-logo">
+            <div class="loading-text">AIONedge</div>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Force loading screen to stay for exactly 20 seconds
+        (function() {
+            var loadingScreen = document.getElementById('loadingScreen');
+            var body = document.body;
+            
+            // Hide after exactly 20 seconds
+            setTimeout(function() {
+                console.log('Starting fade out after 20 seconds');
+                loadingScreen.classList.add('fade-out');
+                body.classList.remove('loading');
+                
+                // Remove from DOM after fade completes
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                    console.log('Loading screen hidden');
+                }, 500);
+            }, 20000); // Exactly 20 seconds
+            
+            console.log('Loading screen timer started - will hide in 20 seconds');
+        })();
+    </script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -21,23 +57,28 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.html#features" class="nav-link">Features</a>
+                    <a href="index.html" class="nav-link" data-translate="nav.home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="mission-vision.html" class="nav-link active">Mission & Vision</a>
+                    <a href="mission-vision.html" class="nav-link active" data-translate="nav.missionVision">Mission & Vision</a>
                 </li>
                 <li class="nav-item">
-                    <a href="dutch-legal.html" class="nav-link">Dutch Legal</a>
+                    <a href="dutch-legal.html" class="nav-link" data-translate="nav.dutchLegal">Dutch Legal</a>
                 </li>
                 <li class="nav-item">
-                    <a href="demos.html" class="nav-link">Demos</a>
+                    <a href="demos.html" class="nav-link" data-translate="nav.demos">Demos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="index.html#contact" class="nav-link">Contact</a>
+                    <a href="index.html#contact" class="nav-link" data-translate="nav.contact">Contact</a>
                 </li>
             </ul>
             <div class="nav-cta">
-                <a href="index.html#contact" class="btn btn-primary">Book a Demo</a>
+                <a href="index.html#contact" class="btn btn-primary" data-translate="nav.bookDemo">Book a Demo</a>
+            </div>
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <span class="lang-divider">|</span>
+                <button class="lang-btn" data-lang="nl">NL</button>
             </div>
             <div class="hamburger">
                 <span class="bar"></span>
@@ -60,9 +101,6 @@
                 <p class="hero-subtitle">
                     Where startup agility meets enterprise-grade AI solutions. Custom RAG agents for Dutch legal excellence.
                 </p>
-                <div class="hero-buttons">
-                    <a href="#mission" class="btn btn-primary">Explore Our Mission</a>
-                </div>
             </div>
             <div class="hero-dashboard">
                 <div class="dashboard-preview">
@@ -77,7 +115,7 @@
                     <div class="dashboard-content">
                         <div class="metric-card">
                             <div class="metric-label">Founded</div>
-                            <div class="metric-value">2024</div>
+                            <div class="metric-value">2025</div>
                             <div class="metric-change positive">New</div>
                         </div>
                         <div class="metric-card">
@@ -90,16 +128,73 @@
                             <div class="metric-value">100%</div>
                             <div class="metric-change positive">Full Speed</div>
                         </div>
-                        <div class="chart-placeholder">
-                            <div class="chart-bars">
-                                <div class="bar" style="height: 60%"></div>
-                                <div class="bar" style="height: 40%"></div>
-                                <div class="bar" style="height: 20%"></div>
-                                <div class="bar" style="height: 10%"></div>
-                                <div class="bar" style="height: 5%"></div>
-                                <div class="bar" style="height: 2%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Page Navigation -->
+    <section id="page-nav" class="page-navigation">
+        <div class="container">
+            <nav class="section-nav">
+                <a href="#milestones" class="section-nav-link">Key Milestones</a>
+                <a href="#mission" class="section-nav-link">Our Mission</a>
+                <a href="#vision" class="section-nav-link">Our Vision</a>
+                <a href="#startup-journey" class="section-nav-link">Our Startup Journey</a>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Key Milestones Section -->
+    <section id="milestones" class="milestones-section" style="background: #ffffff; padding: 6rem 0; overflow: visible;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Milestones</h2>
+                <p>Our journey from vision to reality</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2025</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Foundation and Vision</h3>
+                        <p>Founded with a clear vision to simplify complex business processes through the power of AI. Our journey began with the aim to provide innovative, intelligent solutions that streamline operations, boost efficiency, and enable data-driven decisions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2025</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Product Launch</h3>
+                        <p>We introduced our first in-house AI products, <strong>FLOWAION</strong> and <strong>CHATAION</strong>, to simplify solutions for startups and enterprises alike.</p>
+                        <ul class="timeline-list">
+                            <li><strong>FLOWAION:</strong> Designed to automate and optimize business workflows using advanced AI analytics, enabling businesses to scale more efficiently.</li>
+                            <li><strong>CHATAION:</strong> A chat-based AI system that seamlessly integrates with businesses, providing real-time, data-driven insights and automating key tasks.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2025</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Simplifying the Dutch Legal Domain</h3>
+                        <p>Our products took a major leap forward in the Dutch Legal Domain, where FLOWAION and CHATAION were deployed to streamline and automate complex legal workflows. By simplifying document processing, case law retrieval, and workflow automation, we enabled Dutch legal teams to operate more efficiently and intelligently.</p>
                             </div>
                         </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-marker">
+                        <div class="timeline-year">2025</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Expanding Across Europe</h3>
+                        <p>After successfully launching and gaining traction in the Dutch market, we raised funding to expand our footprint across European markets. This funding has enabled us to enhance our AI tools and scale our impact globally, bringing our vision of AI-powered simplification to more industries and regions.</p>
                     </div>
                 </div>
             </div>
@@ -134,25 +229,25 @@
     </section>
 
     <!-- Vision Section -->
-    <section class="how-it-works">
+    <section id="vision" class="features" style="background: #f8f9fa;">
         <div class="container">
             <div class="section-header">
                 <h2>Our Vision: Building the Future of Intelligent Business Operations</h2>
                 <p>From startup to industry leader. Our vision for transforming how businesses approach AI-powered process optimization.</p>
             </div>
-            <div class="works-steps">
-                <div class="step">
-                    <div class="step-number">1</div>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1200px;">
+                <div class="feature-card">
+                    <div class="feature-number">1</div>
                     <h3>Accessible AI for All</h3>
                     <p>We envision a future where custom RAG agents and intelligent automation are accessible to every organization, regardless of size. AI-powered process optimization becomes a standard tool for smart businesses, not just a luxury for large enterprises.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
+                <div class="feature-card">
+                    <div class="feature-number">2</div>
                     <h3>Dutch Legal Market Leadership</h3>
                     <p>By 2027, we aim to be the leading startup in custom AI agent development, with a strong presence in the Dutch legal market. We're building specialized solutions for Dutch law firms, corporate legal departments, and compliance teams.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="feature-card">
+                    <div class="feature-number">3</div>
                     <h3>European Expansion</h3>
                     <p>We're building the foundation for a company that will revolutionize how businesses approach process optimization across Europe, starting with our innovative RAG technology and expanding into comprehensive AI solutions.</p>
                 </div>
@@ -161,8 +256,12 @@
     </section>
 
     <!-- Values Section -->
-    <section class="specific-features">
+    <section id="startup-journey" class="specific-features">
         <div class="container">
+            <div class="section-header">
+                <h2>Our Startup Journey</h2>
+                <p>The values and principles that drive us forward</p>
+            </div>
             <div class="feature-showcase">
                 <div class="feature-item">
                     <div class="feature-content">
@@ -210,56 +309,6 @@
                                 <div class="insight-text">Innovation First</div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Journey Section -->
-    <section class="faq">
-        <div class="container">
-            <div class="section-header">
-                <h2>Our Startup Journey</h2>
-            </div>
-            <div class="faq-content">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Where are we now in our startup journey?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>As a startup founded in 2024, we're just beginning our journey to transform how businesses approach AI and process optimization. We're working with early adopters and pilot clients to refine our technology and prove the value of custom RAG agents in real-world scenarios. Currently, we have 5+ pilot projects across Dutch legal, logistics, and insurance sectors.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What makes our startup approach different?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our startup approach allows us to be agile, responsive, and focused on delivering real value without the constraints of legacy systems. We move fast, adapt quickly, and aren't afraid to experiment with new AI technologies. Every client gets personal attention from our founders and direct access to our development team.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How do we measure success as a startup?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We measure success through client satisfaction (100% so far), the quality of our pilot projects, and the real-world impact of our custom RAG agents. Our focus is on building long-term partnerships rather than just completing transactions. We're proud of our 100% client satisfaction rate and the growing demand for our Dutch legal AI solutions.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What's next for AIONedge?</h3>
-                        <span class="faq-toggle">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We're expanding our pilot program, refining our RAG technology, and building strategic partnerships in the Dutch legal market. Our goal is to become the leading startup in custom AI agent development by 2027, with a strong presence in the Netherlands and expansion across Europe. We're also exploring new industry verticals and developing additional AI capabilities.</p>
                     </div>
                 </div>
             </div>
@@ -324,6 +373,7 @@
         </div>
     </footer>
 
+    <script src="translations.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
