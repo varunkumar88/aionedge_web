@@ -233,13 +233,36 @@ if (contactForm) {
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        // Simulate API call
-        setTimeout(() => {
-            showNotification('Thanks! We\'ll contact you shortly.', 'success');
-            this.reset();
+        // Send data to backend API
+        fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                company: company,
+                usecase: usecase
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showNotification('Thanks! We\'ll contact you shortly.', 'success');
+                this.reset();
+            } else {
+                showNotification(data.message || 'Something went wrong. Please try again.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showNotification('Failed to send message. Please try again.', 'error');
+        })
+        .finally(() => {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        }, 1200);
+        });
     });
 }
 

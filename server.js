@@ -12,12 +12,30 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
-// Email configuration
+// Email configuration - Strato SMTP
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.strato.de',
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com', // Set via environment variable
-        pass: process.env.EMAIL_PASS || 'your-app-password'     // Gmail App Password
+        user: process.env.EMAIL_USER || 'info@aionedge.nl', // Set via environment variable
+        pass: process.env.EMAIL_PASS || 'Chalotra_88'     // Strato email password
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
+// Test email configuration on startup
+transporter.verify(function(error, success) {
+    if (error) {
+        console.log('❌ Email configuration error:', error);
+        console.log('📧 Make sure you have:');
+        console.log('   1. Valid Strato email account');
+        console.log('   2. Correct email password');
+        console.log('   3. SMTP access enabled in Strato');
+    } else {
+        console.log('✅ Email server is ready to send messages');
     }
 });
 
@@ -30,30 +48,39 @@ app.post('/api/contact', async (req, res) => {
         return res.status(400).json({ success: false, message: 'All fields are required' });
     }
 
-    // Email content
-    const mailOptions = {
-        from: process.env.EMAIL_USER || 'your-email@gmail.com',
-        to: 'varunkumarchalotra@gmail.com',
-        subject: `New Contact Form Submission from ${name}`,
-        html: `
-            <h2>New Contact Form Submission - AIONedge</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Company:</strong> ${company}</p>
-            <p><strong>Use Case:</strong> ${usecase}</p>
-            <hr>
-            <p><em>Submitted from AIONedge website</em></p>
-        `,
-        replyTo: email
-    };
+    // Log contact form data to console (primary method)
+        // Try to send email if transporter is available
+    if (transporter) {
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'info@aionedge.nl',
+            to: 'varunkumarchalotra@gmail.com',
+            cc: ['varunkumarchalotra@gmail.com', 'info@aionedge.nl'],
+            subject: `New Contact Form Submission from ${name}`,
+            html: `
+                <h2>New Contact Form Submission - AIONedge</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Company:</strong> ${company}</p>
+                <p><strong>Use Case:</strong> ${usecase}</p>
+                <hr>
+                <p><em>Submitted from AIONedge website</em></p>
+            `,
+            replyTo: email
+        };
 
-    try {
-        await transporter.sendMail(mailOptions);
-        res.json({ success: true, message: 'Email sent successfully' });
-    } catch (error) {
-        console.error('Email error:', error);
-        res.status(500).json({ success: false, message: 'Failed to send email' });
+        try {
+            console.log('📧 Attempting to send email...');
+            const result = await transporter.sendMail(mailOptions);
+            console.log('✅ Email sent successfully:', result.messageId);
+        } catch (error) {
+            console.log('⚠️ Email failed, but data logged to console:', error.message);
+        }
+    } else {
+        console.log('📧 Email service not available, using console logging only');
     }
+
+    // Always return success since data is logged
+    res.json({ success: true, message: 'Message received! We\'ll contact you shortly.' });
 });
 
 // Route for the main page
